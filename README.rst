@@ -3,7 +3,7 @@
 =======================================
 Atlassian Confluence Builder for Sphinx
 =======================================
-In this Fork I Fix problem with `Fix error: desc_signature_line have not in Markdown`
+In this Fork I Fix problem with **Fix error: desc_signature_line have not in Markdown**
 
 .. image:: https://img.shields.io/pypi/v/sphinxcontrib-confluencebuilder.svg
     :target: https://pypi.python.org/pypi/sphinxcontrib-confluencebuilder
