@@ -129,6 +129,11 @@ class ConfluenceTranslator(BaseTranslator):
         raise nodes.SkipNode
 
     def unknown_visit(self, node):
+        # For C++ code
+        if node.__class__.__name__ == "desc_signature_line":
+            print(node.astext())
+            self.visit_literal_block(node)
+
         raise NotImplementedError('unknown node: ' + node.__class__.__name__)
 
     # ---------
@@ -1309,8 +1314,12 @@ class ConfluenceTranslator(BaseTranslator):
     # -----------------------
 
     def visit_rubric(self, node):
-        self.body.append(self._start_tag(node, 'h{}'.format(self._title_level)))
-        self.context.append(self._end_tag(node))
+        if ("Functions" in node.astext()) | ("Slot" in node.astext()):
+            self.body.append(self._start_tag(node, 'h{}'.format(4)))
+            self.context.append(self._end_tag(node))
+        else:
+            self.body.append(self._start_tag(node, 'h{}'.format(self._title_level)))
+            self.context.append(self._end_tag(node))
 
     def depart_rubric(self, node):
         self.body.append(self.context.pop()) # h<x>
