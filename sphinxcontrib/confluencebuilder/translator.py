@@ -1314,12 +1314,15 @@ class ConfluenceTranslator(BaseTranslator):
     # -----------------------
 
     def visit_rubric(self, node):
+        # Take header level from xml
+        title_level = self._title_level
         if ("Functions" in node.astext()) | ("Slot" in node.astext()):
-            self.body.append(self._start_tag(node, 'h{}'.format(4)))
-            self.context.append(self._end_tag(node))
-        else:
-            self.body.append(self._start_tag(node, 'h{}'.format(self._title_level)))
-            self.context.append(self._end_tag(node))
+            # Install 4 level for atomatic headers (Breathe module)
+            title_level = 4
+
+        # Treatment for
+        self.body.append(self._start_tag(node, 'h{}'.format(title_level)))
+        self.context.append(self._end_tag(node))
 
     def depart_rubric(self, node):
         self.body.append(self.context.pop()) # h<x>
